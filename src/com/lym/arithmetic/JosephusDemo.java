@@ -1,5 +1,9 @@
 package com.lym.arithmetic;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * 约瑟夫环问题
  * 递归
@@ -14,13 +18,15 @@ public class JosephusDemo {
 		int sum=100;
 		int key=13;
 		int[] losers=new int[50];
+		//int[] survivals=new int[50];
 		for (int i = 1; i < 51; i++) {
 			System.out.println(">>>>第"+i+"次");
 			int loser=1+getNumber(sum, key, i);
 			System.out.println("淘汰的编号是："+loser);
 			System.out.println();
-			losers[i]=loser;
+			losers[i-1]=loser;
 		}
+		System.out.println(losers.length);
 		System.out.println("淘汰的编号正序如下："+sortAscNum(losers));
 		System.out.println("幸存的编号正序如下："+sortDescNum(losers));
 	}
@@ -34,13 +40,29 @@ public class JosephusDemo {
 	}
 	
 	private static String sortAscNum(int[] losers) {
+		ChangeSort sort=new ChangeSort();
+		sort.quickSort(losers, 0, losers.length-1);
+		StringBuffer loser=new StringBuffer();
+		for (int i : losers) {
+			if (i>0) {
+				loser.append(i+",");
+			}
+		}
 		
-		return null;
+		return loser.toString();
 	}
 	
 	private static String sortDescNum(int[] losers) {
-		
-		return null;
+		List<Integer> survivals=new ArrayList<>();
+		for (int i = 1; i < 101; i++) {
+			survivals.add(i);
+			for (int n : losers) {
+				if (i==n) {
+					survivals.remove(survivals.size()-1);
+				}
+			}
+		}
+		return survivals.toString();
 	}
 
 }
