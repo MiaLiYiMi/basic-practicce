@@ -1,5 +1,8 @@
 package com.lym.arithmetic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 在数组 a 中，查找 key，返回 key 所在的位置
  * @author lym
@@ -10,6 +13,13 @@ public class ArrayDemo {
 	private static final int[] array= {4,2,3,5,9,6};
 
 	public static void main(String[] args) {
+		List<Integer> mList = new ArrayList<>();
+        mList.add(1);
+        mList.add(2);
+        mList.add(3);
+        String mListStr = listToString2(mList);
+        System.out.println("mListStr = " + mListStr);
+		
 		ArrayDemo demo=new ArrayDemo();
 		System.out.println(demo.findKeyV1(array, 7));
 		System.out.println(demo.findKeyV2(array, 7));
@@ -50,4 +60,21 @@ public class ArrayDemo {
 			return i;
 		}
 	}
+	
+	
+	// 采用Stringbuilder.append()的方式追加
+    public static String listToString2(List<Integer> mList) {
+        final String SEPARATOR = ",";
+        StringBuilder sb = new StringBuilder();
+        String convertedListStr = "";
+        if (null != mList && mList.size() > 0) {
+            for (Integer item : mList) {
+                sb.append(item);
+                sb.append(SEPARATOR);
+            }
+            convertedListStr = sb.toString();
+            convertedListStr = convertedListStr.substring(0, convertedListStr.length()-SEPARATOR.length());
+            return convertedListStr;
+        } else return "List is null!!!";
+    }
 }
